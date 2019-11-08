@@ -1,0 +1,3 @@
+const PRIVATE_KEY = '0xbd533ca11d82353654075f69be6bdca6ff11ca2dbd26c27215d2983d33152025';
+
+module.exports = PRIVATE_KEY;
