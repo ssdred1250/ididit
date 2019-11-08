@@ -23,4 +23,4 @@ app.listen(PORT, (err) => {
     else {
         console.error(err.message);
     }
-})
+});
