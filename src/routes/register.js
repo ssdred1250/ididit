@@ -18,12 +18,19 @@ router.post('/', upload.fields([
             'Content-Type': 'multipart/form-data; charset=UTF-8'
         },
         formData: {
-            sourceFile: req.files.license[0].buffer,
-            targetFile: req.files.face[0].buffer
+            sourceFile: {
+                value: req.files.license[0].buffer,
+                options: {filename: 'license', contentType: 'image/jpg'}
+            },
+            targetFile: {
+                value: req.files.face[0].buffer,
+                options: {filename: 'face', contentType: 'image/jpg'}
+            }
         }
     });
-    console.log(result);
-    res.json(result);
+    res.json(Object.keys(result));
+    let ocr = result.body.ocrResult;
+    res.json([ocr.name, ocr.licenseNumber]);
 });
 
-module.exports = {router, path: '/register'}
+module.exports = {router, path: '/register'};
