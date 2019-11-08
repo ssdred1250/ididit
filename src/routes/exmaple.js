@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', async(req, res) => {
+router.get('/hello', async(req, res) => { // GET /basepath/hello
     res.end('Hello world');
 });
 
-module.exports = {path: '/', router};
+module.exports = {path: '/basepath', router};
