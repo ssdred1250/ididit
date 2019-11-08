@@ -1,34 +1,45 @@
 pragma solidity ^0.5.6;
 
 contract Verification {
-    address admin;
+    mapping(address => bool) isAdmin;
 
     constructor() public {
-        admin = msg.sender;
+        isAdmin[msg.sender] = true;
     }
 
-    struct DiD {
-        string phoneNumberHash;
-        string licenseNumber;
-        string licenseType;
-        bool isAdult;
+    struct DID {
+        string identifier;
+        uint64 expiry;
+        string data;
     }
 
-    mapping(string => DiD) phoneNumber_DiD;
+    mapping(string => mapping(string => DID)) didList;
 
-    function registerLicense(string memory _phoneNumberHash, string memory _licenseNumber, string memory _licenseType, bool _isAdult) public {
-        DiD memory newDiD;
-        newDiD.phoneNumberHash = _phoneNumberHash;
-        newDiD.licenseNumber = _licenseNumber;
-        newDiD.licenseType = _licenseType;
-        newDiD.isAdult = _isAdult;
-
-        phoneNumber_DiD[_phoneNumberHash] = newDiD;
+    function promoteAdmin(address user) public {
+        require(isAdmin[msg.sender] == true, "Access Denied");
+        isAdmin[user] = true;
+    }
+    function demoteAdmin(address user) public {
+        require(isAdmin[msg.sender] == true, "Access Denied");
+        isAdmin[user] = false;
     }
 
-    function getLicense(string memory _phoneNumberHash) public view returns (string memory, string memory, bool) {
-        require(bytes(phoneNumber_DiD[_phoneNumberHash].licenseNumber).length > 0, "Invalid licenseNumber");
+    function registerLicense(string memory _phoneNumberHash, string memory _type, string memory _identifier, uint64 _expiry, string memory _data) public {
+        require(isAdmin[msg.sender] == true, "Access Denied");
+        DID memory newDiD;
+        newDiD.identifier = _identifier;
+        newDiD.expiry = _expiry;
+        newDiD.data = _data;
 
-        return (phoneNumber_DiD[_phoneNumberHash].licenseNumber, phoneNumber_DiD[_phoneNumberHash].licenseType, true);
+        didList[_phoneNumberHash][_type] = newDiD;
+    }
+
+    function getLicense(string memory _phoneNumberHash, string memory _type) public view returns (uint64, string memory) {
+        return (didList[_phoneNumberHash][_type].expiry, didList[_phoneNumberHash][_type].data);
+    }
+
+    function invalidateLicense(string memory _phoneNumberHash, string memory _type) public {
+        require(isAdmin[msg.sender] == true, "Access Denied");
+        delete didList[_phoneNumberHash][_type];
     }
 }
