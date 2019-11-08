@@ -19,6 +19,8 @@ fs.readdirSync(path.join(__dirname, 'routes')).forEach((name) => {
     app.use(m.path, m.router);
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.listen(PORT, (err) => {
     if (!err) {
         console.log(`Listening on port ${PORT}`);
