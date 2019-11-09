@@ -21,10 +21,10 @@ router.get('/:id', async (req, res) => {
         licenseData = await IDIDIT_CONTRACT.methods.getLicense(phoneNumber_hash).call();
     } catch (err) {
         console.error(err)
-        res.send('f**k!!')
+        res.send('Something Wrong!!')
     }
 
-    res.send('' + true)
+    res.send({message: '면허가 유효한 유저입니다.', value: true})
 
 });
 
