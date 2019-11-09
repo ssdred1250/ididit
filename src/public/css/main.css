@@ -131,12 +131,14 @@
 }
 
 .recog-img-section {
+    margin-top: 15px;
     display: flex;
     justify-content: center;
-    height: 40vh;
+    height: 32vh;
+    margin: auto;
 }
 
 .recog-img {
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 160px;
 }
