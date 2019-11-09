@@ -107,7 +107,7 @@ label.input-idd {
     margin: 0;
     background-color: #F9FAFF;
     border: 1px solid #E0E7FF;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #AFAFAF;
     padding: 15px auto;
     font-size: 14px;
@@ -118,4 +118,23 @@ label.input-idd {
 }
 .with-confirm #input-phone {
     width: calc(100% - 95px);
+}
+.two-big-div>div {
+    display: inline-block;
+    width: 42%;
+    padding: 25px 10px;
+    border: 1px solid #2E5BFF88;
+    border-radius: 3px;
+    text-align: center;
+}
+.two-big-div>div>img {
+    width: 45px;
+    height: 45px;
+}
+.two-big-div>div>h2 {
+    font-size: 16px;
+}
+.two-big-div>div>small {
+    color: #8798AD;
+    font-size: 12px;
 }

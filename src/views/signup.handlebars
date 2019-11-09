@@ -120,9 +120,38 @@
 			</div>
 		</ons-card>
 	</section>
-	<section class="phase phase-4">
-
+	<section class="phase phase-4" style="display: none;">
+		<h2 class="central">운전면허증 등록</h2>
+		<ons-card>
+			<div class="two-big-div">
+				<div class="btn-camera">
+					<img src="/img/camera.png">
+					<h2>직접 촬영</h2>
+					<small>운전면허증을 정방향으로 직접 촬영하여 등록해주세요.</small>
+				</div>
+				<div class="btn-album">
+					<img src="/img/photo.png">
+					<h2>앨범에서 선택</h2>
+					<small>이전에 촬영한 운전면허증을 앨범으로부터 불러옵니다.</small>
+				</div>
+			</div>
+			<p style="font-size: 12px;">
+				※너무 기울어진 이미지는 사용하실 수 없습니다. <br>
+				※제출한 이미지는 본인확인 이외에는 사용되지 않습니다.
+			</p>
+		</ons-card>
 	</section>
+	<section class="phase phase-5">
+		<div class="central">
+			<h2>얼굴 인식</h2>
+			<p>
+				보안 강화와 위변조, 부정 사용 방지를 위해 얼굴인식을 사용하고 있습니다. <br>
+				얼굴 이미지는 검증 이후 즉시 파기됩니다.
+			</p>
+		</div>
+	</section>
+	<input type="file" id="input-image" style="display: none;" accept="image/*">
+	<input type="file" id="input-face" style="display: none;" accept="image/*" capture="user">
 	<ons-button modifier="large" class="button-next" disabled onclick="changePhase()">다음</ons-button>
 </ons-page>
 <script>
@@ -134,7 +163,13 @@ function changePhase() {
     $('.phase').hide();
 	$('.phase-' + phase).show();
 	document.querySelector('#progress-signup').value = -10 + phase * 20;
-	document.querySelector('.button-next').disabled = true;
+	if(phase < 5) {
+		document.querySelector('.button-next').disabled = true;
+	}
+	else if(phase === 6) {
+
+	}
+
 }
 function check(num) {
 	isCheck[num] = $('#check-' + num).is(':checked');
@@ -156,5 +191,14 @@ $('.btn-group>ons-button').click(function() {
 });
 $('#button-phone-auth').click(() => {
 	document.querySelector('.button-next').disabled = false;
+});
+$('.btn-camera').click(() => {
+    $('#input-image').attr('capture', 'environment').trigger('click');
+});
+$('.btn-album').click(() => {
+	$('#input-image').removeAttr('capture').trigger('click');
+});
+$('#input-image').change(() => {
+	changePhase();
 });
 </script>
