@@ -5,7 +5,6 @@ const cheerio = require('cheerio');
 
 const verifyLicense = async (checkPage, flag, publishDate, name, licenseNumber, ghostNo) => {
     const form = new FormData();
-    console.log(checkPage, flag, publishDate, name, licenseNumber, ghostNo)
 
     const splittedDate = publishDate.split('-')
     const splittedLicenseNumber = licenseNumber.split('-')

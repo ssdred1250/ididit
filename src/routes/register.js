@@ -30,16 +30,20 @@ router.post('/', upload.fields([
             }
         }
     });
-    // res.json(Object.keys(result));
     let ocr = JSON.parse(result);
-    console.log(ocr.score)
-    console.log(ocr.ocrResult)
 
-    const verifiedLicense = await verifyLicense(2, 'searchPage', ocr.ocrResult.regisNumber, ocr.ocrResult.name, ocr.ocrResult.licenseNumber, req.body.ghostNo)
+    try{
+        const verifiedLicense = await verifyLicense(2, 'searchPage', ocr.ocrResult.regisNumber, ocr.ocrResult.name, ocr.ocrResult.licenseNumber, req.body.ghostNo)
 
-    const answer = ocr.score > 60 && verifiedLicense
+    } catch(err) {
+        res.json({message: '면허증인식이 잘 되지 않았습니다', value: false})
+    }
+    
+    const similarity = ocr.score > 60 ? {message: '면허증의 사진과 본인이 매우 유샤합니다.', value: true} : {message: '면허증 사진과 본인이 매우 다릅니다. 자신의 면허증인지 확인해주세요.', value: false}
 
-    res.json(answer);
+    const answer = similarity.value && verifiedLicense
+
+    res.json({message: similarity.message, value: answer});
 });
 
 module.exports = {router, path: '/register'};
