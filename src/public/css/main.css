@@ -1,0 +1,105 @@
+#logo-nav {
+    top: 80px;
+    margin: 0 auto;
+    display: block;
+    width: 30%;
+    min-width: 80px;
+    max-width: 100px;
+    height: auto;
+}
+
+.toolbar-button {
+    font-size: 30px;
+}
+
+.main-card {
+    width: 72%;
+    margin: auto;
+    margin-top: 10px;
+    border: solid 0.6px #2E5BFF;
+}
+
+#qrcode {
+    margin-top: 15px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.center-text {
+
+    text-align: center;
+}
+
+.grey-text {
+    color: #BFC5D2;
+}
+
+.card-title {
+    color: #fff;
+    margin: 0px 0px 0px 8px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.card-description {
+    font-size: 10px;
+    margin: 0px 0px 0px 8px;
+    color: #E7EAF0;
+}
+
+.card-title-section {
+    width: 174px;
+    padding: 8px;
+    background: #2E5BFF;
+    margin-left: -16px;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.title-section {
+    margin: 26px;
+}
+
+.cta-section {
+    display: flex;
+    justify-content: center;
+}
+
+.main-cta-button {
+    background: #2E5BFF;
+    width: 180px;
+    border-radius: 4px;
+    margin: 14px;
+}
+
+.nav-image-icon {
+    width: 20px;
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-top: 12px;
+}
+
+.drawer-section {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 70%;
+    height: 100vh;
+    z-index: 20000;
+    background: #fff;
+    display: none;
+}
+
+.drawer-user-section {
+    display: flex;
+    vertical-align: middle;
+}
+
+.user-name {
+    margin: 12px;
+    width: calc(100% - 40px);
+}
+
+.user-section-right {
+    float: right;
+}

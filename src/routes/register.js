@@ -22,7 +22,6 @@ router.post('/', upload.fields([
     { name: 'license', maxCount: 1 },
     { name: 'face', maxCount: 1 }
 ]), async (req, res) => {
-    //req.headers['authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inpvb3F6cXpAZ21haWwuY29tIiwiaWF0IjoxNTczMjg4NDg0fQ.VCcIkDzR3uIS6E6vlmg_9lq3_ccSpixUmzZWyDXR1CI'
     // 전화번호 인증을 받았다 가정
     let result = await request('https://visionai.skcc.com/ocr/irs/recognize-id', {
         method: 'POST',
