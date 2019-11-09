@@ -21,7 +21,8 @@
 		<ons-card>
 			<h3>1. I did it 이용약관(필수)</h3>
 			<div class="textbox">
-				본 약관은 회원(서비스 약관에 동의한 자를 말합니다. 이하 "회원"이라고 합니다.)이 I did it(이하 "회사"라고 합니다.)가 제공하는 DID를 활용한 운전면허증과 B2B 솔루션 서비스(이하 "서비스"라고 합니다.)를 이용함에 있어 회사와 회원의 권리, 의무 및 책임사항, 서비스 이용조건 및 절차 등 기본적인 사항을 규정함을 목적으로 합니다.
+				본 약관은 회원(서비스 약관에 동의한 자를 말합니다. 이하 "회원"이라고 합니다.)이 I did it(이하 "회사"라고 합니다.)가 제공하는 DID를 활용한 운전면허증과 B2B 솔루션
+				서비스(이하 "서비스"라고 합니다.)를 이용함에 있어 회사와 회원의 권리, 의무 및 책임사항, 서비스 이용조건 및 절차 등 기본적인 사항을 규정함을 목적으로 합니다.
 			</div>
 			<div class="check">
 				<label class="left">
@@ -65,12 +66,16 @@
 		<ons-card>
 			<form action="">
 				<label for="input-id" class="input-idd">아이디</label>
-				<ons-button id="button-check-duplicate" style="float: right; background-color: #2CC2A5; font-size: 13px; padding: 2px 10px;position: relative;z-index: 1000000000;">중복 확인</ons-button>
+				<ons-button id="button-check-duplicate"
+					style="float: right; background-color: #2CC2A5; font-size: 13px; padding: 2px 10px;position: relative;z-index: 1000000000;">
+					중복 확인</ons-button>
 				<ons-input input-id="input-id" class="input-idd with-confirm" placeholder="아이디를 입력해주세요"></ons-input>
 				<label for="input-password" class="input-idd">비밀번호</label>
-				<ons-input input-id="input-password" class="input-idd" placeholder="영문, 숫자, 특수문자 포함 8자 이상 입력" type="password"></ons-input>
+				<ons-input input-id="input-password" class="input-idd" placeholder="영문, 숫자, 특수문자 포함 8자 이상 입력"
+					type="password"></ons-input>
 				<label for="input-password-repeat" class="input-idd">비밀번호 확인</label>
-				<ons-input input-id="input-password-repeat" class="input-idd" placeholder="영문, 숫자, 특수문자 포함 8자 이상 입력" type="password" onkeyup="checkPassword()"></ons-input>
+				<ons-input input-id="input-password-repeat" class="input-idd" placeholder="영문, 숫자, 특수문자 포함 8자 이상 입력"
+					type="password" onkeyup="checkPassword()"></ons-input>
 			</form>
 		</ons-card>
 	</section>
@@ -84,7 +89,9 @@
 				<ons-button>알뜰폰</ons-button>
 			</div>
 			<label for="input-phone" class="input-idd">휴대폰 번호</label>
-			<ons-button id="button-phone-auth" style="float: right; background-color: #2CC2A5; font-size: 13px; padding: 2px 10px;position: relative;z-index: 1000000000;">인증번호 받기</ons-button>
+			<ons-button id="button-phone-auth"
+				style="float: right; background-color: #2CC2A5; font-size: 13px; padding: 2px 10px;position: relative;z-index: 1000000000;">
+				인증번호 받기</ons-button>
 			<ons-input input-id="input-phone" class="input-idd with-confirm" placeholder="-없이 숫자만 입력"></ons-input>
 			<div class="check">
 				<label class="left">
@@ -146,9 +153,12 @@
 	<section class="phase phase-5" style="display: none;">
 		<div class="central">
 			<h2>얼굴 인식</h2>
-			<p>
-				보안 강화와 위변조, 부정 사용 방지를 위해 얼굴인식을 사용하고 있습니다. <br>
-				얼굴 이미지는 검증 이후 즉시 파기됩니다.
+			<div class="recog-img-section">
+				<img class="recog-img" src="/img/recog_face.png" />
+			</div>
+			<p class="left-text">
+				※보안 강화와 위변조, 부정 사용 방지를 위해 얼굴인식을 사용하고 있습니다. <br>
+				※얼굴 이미지는 검증 이후 즉시 파기됩니다.
 			</p>
 		</div>
 	</section>
@@ -182,82 +192,83 @@
 	</div>
 </ons-page>
 <script>
-let phase = 1;
-let isCheck = [false, false, false, false];
+	let phase = 1;
+	let isCheck = [false, false, false, false];
 
-function changePhase() {
-    phase++;
-	if(phase < 6) {
-		$('.phase').hide();
-		$('.phase-' + phase).show();
-		document.querySelector('#progress-signup').value = -10 + phase * 20;
-		document.querySelector('.button-next').disabled = (phase < 5);
+	function changePhase() {
+		phase++;
+		if (phase < 6) {
+			$('.phase').hide();
+			$('.phase-' + phase).show();
+			document.querySelector('#progress-signup').value = -10 + phase * 20;
+			document.querySelector('.button-next').disabled = (phase < 5);
+		}
+		else {
+			$('#input-face').trigger('click');
+		}
 	}
-	else {
-		$('#input-face').trigger('click');
+	function check(num) {
+		isCheck[num] = $('#check-' + num).is(':checked');
+		document.querySelector('.button-next').disabled = !(isCheck[0] && isCheck[1] && isCheck[2] && isCheck[3]);
 	}
-}
-function check(num) {
-	isCheck[num] = $('#check-' + num).is(':checked');
-	document.querySelector('.button-next').disabled = !(isCheck[0] && isCheck[1] && isCheck[2] && isCheck[3]);
-}
-$('#button-check-duplicate').click(() => {
-    console.log('클릭');
-	let btn = document.querySelector('#button-check-duplicate');
-	btn.disabled = true;
-	btn.innerHTML = '확인 완료';
-});
-function checkPassword() {
-    let rp = $('#input-password-repeat').val();
-	document.querySelector('.button-next').disabled = !(rp && rp === $('#input-password').val());
-}
-$('.btn-group>ons-button').click(function() {
-	$('.btn-group>ons-button').removeClass('selected');
-	$(this).addClass('selected');
-});
-$('#button-phone-auth').click(() => {
-	document.querySelector('.button-next').disabled = false;
-});
-$('.btn-camera').click(() => {
-    $('#input-image').attr('capture', 'environment').trigger('click');
-});
-$('.btn-album').click(() => {
-	$('#input-image').removeAttr('capture').trigger('click');
-});
-$('#input-image').change(() => {
-	changePhase();
-});
-$('#input-face').change(() => {
-	$('ons-page.register').hide();
-	$('ons-page.loading').show();
-	// 백엔드와 Ajax 통신 여기서, 임시로 setTimeout으로 설정
-	$.post('/auth/signup', {
-	    email: $('#input-id').val(),
-		password: $('#input-password').val(),
-		phoneNumber: $('#input-phone').val()})
-	.then((data) => {
-	    let fd = new FormData();
-	    fd.append('license', $('#input-image')[0].files[0]);
-		fd.append('face', $('#input-face')[0].files[0]);
-		fd.append('ghostNo', $('#input-ghost').val());
-		fd.append('token', data.token);
-		localStorage.setItem('token', data.token);
-	    $.ajax({
-			url: '/register', data: fd, processData: false,
-			contentType: false, type: 'POST'
-		}).then((data) => {
-			$('ons-page.loading').hide();
-			$('ons-page.end').show();
-			$('#span-percent').text(data.similarity);
-		}, () => {
-			ons.notification.alert('운전면허증 인식에 실패했습니다.');
-		});
-
-	}, () => {
-		ons.notification.alert('입력 데이터가 잘못되었거나 서버에 오류가 있습니다.');
+	$('#button-check-duplicate').click(() => {
+		console.log('클릭');
+		let btn = document.querySelector('#button-check-duplicate');
+		btn.disabled = true;
+		btn.innerHTML = '확인 완료';
 	});
-});
-$('#btn-complete').click(() => {
-    location.reload();
-});
+	function checkPassword() {
+		let rp = $('#input-password-repeat').val();
+		document.querySelector('.button-next').disabled = !(rp && rp === $('#input-password').val());
+	}
+	$('.btn-group>ons-button').click(function () {
+		$('.btn-group>ons-button').removeClass('selected');
+		$(this).addClass('selected');
+	});
+	$('#button-phone-auth').click(() => {
+		document.querySelector('.button-next').disabled = false;
+	});
+	$('.btn-camera').click(() => {
+		$('#input-image').attr('capture', 'environment').trigger('click');
+	});
+	$('.btn-album').click(() => {
+		$('#input-image').removeAttr('capture').trigger('click');
+	});
+	$('#input-image').change(() => {
+		changePhase();
+	});
+	$('#input-face').change(() => {
+		$('ons-page.register').hide();
+		$('ons-page.loading').show();
+		// 백엔드와 Ajax 통신 여기서, 임시로 setTimeout으로 설정
+		$.post('/auth/signup', {
+			email: $('#input-id').val(),
+			password: $('#input-password').val(),
+			phoneNumber: $('#input-phone').val()
+		})
+			.then((data) => {
+				let fd = new FormData();
+				fd.append('license', $('#input-image')[0].files[0]);
+				fd.append('face', $('#input-face')[0].files[0]);
+				fd.append('ghostNo', $('#input-ghost').val());
+				fd.append('token', data.token);
+				localStorage.setItem('token', data.token);
+				$.ajax({
+					url: '/register', data: fd, processData: false,
+					contentType: false, type: 'POST'
+				}).then((data) => {
+					$('ons-page.loading').hide();
+					$('ons-page.end').show();
+					$('#span-percent').text(data.similarity);
+				}, () => {
+					ons.notification.alert('운전면허증 인식에 실패했습니다.');
+				});
+
+			}, () => {
+				ons.notification.alert('입력 데이터가 잘못되었거나 서버에 오류가 있습니다.');
+			});
+	});
+	$('#btn-complete').click(() => {
+		location.reload();
+	});
 </script>

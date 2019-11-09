@@ -125,3 +125,18 @@
     background: #2E5BFF14;
     border-left: solid 3px #2E5BFF;
 }
+
+.left-test {
+    text-align: left;
+}
+
+.recog-img-section {
+    display: flex;
+    justify-content: center;
+    height: 40vh;
+}
+
+.recog-img {
+    width: 200px;
+    height: 200px;
+}
