@@ -43,7 +43,7 @@ body {
     background-color: #E0E7FF33;
     border: 1px solid #e0e7ff;
     border-radius: 3px;
-    padding: 18px 15px;
+    padding: 20px 18px 15px;
     width: 100%;
 }
 ons-input.input-idd {
@@ -69,7 +69,7 @@ label.input-idd {
 .central {
     text-align: center;
 }
-.central h2 {
+.central h2, h2.central {
     font-size: 18px;
     font-weight: bold;
 }
@@ -94,4 +94,28 @@ label.input-idd {
 .button-next {
     margin: 60px 30px 20px;
     width: initial;
+}
+.register ons-card {
+    margin-top: 35px;
+}
+.with-confirm #input-id {
+    width: calc(100% - 80px);
+}
+.btn-group>ons-button {
+    width: 24%;
+    text-align: center;
+    margin: 0;
+    background-color: #F9FAFF;
+    border: 1px solid #E0E7FF;
+    border-radius: 5px;
+    color: #AFAFAF;
+    padding: 15px auto;
+    font-size: 14px;
+}
+.btn-group>ons-button.selected {
+    background-color: #2E5BFF;
+    color: #FFF;
+}
+.with-confirm #input-phone {
+    width: calc(100% - 95px);
 }
