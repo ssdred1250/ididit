@@ -14,10 +14,15 @@ const walletInstance = require('../klaytn/createWallet')
 
 const hashing = require('../utils/hash')
 
+const jwt = require('jsonwebtoken');
+const config = require('../config.json');
+
+
 router.post('/', upload.fields([
     { name: 'license', maxCount: 1 },
     { name: 'face', maxCount: 1 }
 ]), async (req, res) => {
+    req.headers['authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inpvb3F6cXpAZ21haWwuY29tIiwiaWF0IjoxNTczMjg4NDg0fQ.VCcIkDzR3uIS6E6vlmg_9lq3_ccSpixUmzZWyDXR1CI'
     // 전화번호 인증을 받았다 가정
     let result = await request('https://visionai.skcc.com/ocr/irs/recognize-id', {
         method: 'POST',
@@ -51,9 +56,23 @@ router.post('/', upload.fields([
     const similarity = ocr.score > 60 ? { message: '면허증의 사진과 본인이 매우 유샤합니다.', value: true } : { message: '면허증 사진과 본인이 매우 다릅니다. 자신의 면허증인지 확인해주세요.', value: false }
 
     let licenseData
-    try {
 
-        const hashedId = hashing('1') // TODO: will be change to ID
+    const token = req.headers['authorization'] || req.query.token;
+    console.log('token ', token);
+    if (!token) {
+        return res.status(403).json({
+            success: false,
+            message: 'fail'
+        })
+    }
+
+
+    try {
+        const decoded = jwt.verify(token, config.JWT_KEY);
+        const decoded_email = decoded.email;
+        console.log(decoded_email);
+        const hashedId = hashing(decoded_email);
+        console.log(hashedId)
         const expiry = new Date(+ocr.ocrResult.publishDate.split('.')[0] + 10 + '.12.31').getTime()
         licenseData = await IDIDIT_CONTRACT.methods.registerLicense(hashedId, 'DriverLicense', ocr.ocrResult.licenseNumber, expiry, '{}').send({ gas: 3000000, from: walletInstance.address });
     } catch (err) {
@@ -64,7 +83,7 @@ router.post('/', upload.fields([
 
     const answer = similarity.value && verifiedLicense
 
-    res.json({ message: similarity.message, value: answer });
+    res.json(true);
     return;
 });
 
