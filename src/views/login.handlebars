@@ -31,8 +31,10 @@ $('#form-login').submit(() => {
 	});
     return false;
 });
-let token = localStorage.getItem('token');
-if(token) {
-	$('#a-home').trigger('click');
-}
+$(document).ready(() => {
+	if(localStorage.getItem('token')) {
+		console.log('already login');
+		$('#a-home').trigger('click');
+	}
+});
 </script>
