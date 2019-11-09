@@ -1,16 +1,38 @@
 <ons-page>
 	<img src="/img/logo_v1.svg" alt="I did it Logo" id="logo-main">
 	<div class="card" id="card-login">
-		<form action="">
-			<label for="input-id" class="input-idd">아이디</label>
-			<ons-input input-id="input-id" class="input-idd"></ons-input>
+		<form id="form-login">
+			<label for="input-id" class="input-idd">이메일</label>
+			<ons-input input-id="input-id" class="input-idd" type="email"></ons-input>
 			<label for="input-password" class="input-idd">
 				비밀번호
 				<a href="" class="a-right">비밀번호를 잊으셨나요?</a>
 			</label>
 			<ons-input type="password" input-id="input-password" class="input-idd"></ons-input>
+			<ons-button modifier="large" id="btn-login">Sign in</ons-button>
 		</form>
-		<ons-button modifier="large">Sign in</ons-button>
 		<a href="/signup" class="a-center">회원 가입</a>
 	</div>
+	<a href="/home" id="a-home" style="display: none"></a>
 </ons-page>
+<script>
+$('#btn-login').click(() => {
+    $('#form-login').trigger('submit');
+});
+$('#form-login').submit(() => {
+    $.post('/auth/login', {
+        email: $('#input-id').val(),
+		password: $('#input-password').val()
+	}).then((data) => {
+		localStorage.setItem('token', data.token);
+		$('#a-home').trigger('click');
+	}, () => {
+		ons.notification.alert('로그인에 실패했습니다.');
+	});
+    return false;
+});
+let token = localStorage.getItem('token');
+if(token) {
+	$('#a-home').trigger('click');
+}
+</script>
