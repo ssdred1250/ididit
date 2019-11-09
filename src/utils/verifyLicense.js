@@ -3,19 +3,24 @@ const FormData = require('form-data');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const verifyLicense = async (checkPage, flag, regYear, regMonth, regDate, name, licenNo0, licenNo1, licenNo2, licenNo3, ghostNo) => {
+const verifyLicense = async (checkPage, flag, publishDate, name, licenseNumber, ghostNo) => {
     const form = new FormData();
+    console.log(checkPage, flag, publishDate, name, licenseNumber, ghostNo)
+
+    const splittedDate = publishDate.split('-')
+    const splittedLicenseNumber = licenseNumber.split('-')
+
 
     form.append('checkPage', checkPage)
     form.append('flag', flag)
-    form.append('regYear', regYear)
-    form.append('regMonth', regMonth)
-    form.append('regDate', regDate)
+    form.append('regYear', '19' + splittedDate[0][0] +splittedDate[0][1])
+    form.append('regMonth', splittedDate[0][2] +splittedDate[0][3])
+    form.append('regDate', splittedDate[0][4] +splittedDate[0][5])
     form.append('name', name)
-    form.append('licenNo0', licenNo0)
-    form.append('licenNo1', licenNo1)
-    form.append('licenNo2', licenNo2)
-    form.append('licenNo3', licenNo3)
+    form.append('licenNo0', '서울')
+    form.append('licenNo1', splittedLicenseNumber[1])
+    form.append('licenNo2', splittedLicenseNumber[2])
+    form.append('licenNo3', splittedLicenseNumber[3])
     form.append('ghostNo', ghostNo)
 
     const checkByGovernment = await axios.post('https://www.efine.go.kr/licen/truth/licenTruth.do?subMenuLv=010100', form, {

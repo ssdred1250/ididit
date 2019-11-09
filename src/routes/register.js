@@ -6,6 +6,8 @@ const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({storage});
 
+const verifyLicense = require('../utils/verifyLicense')
+
 router.post('/', upload.fields([
     {name: 'license', maxCount: 1},
     {name: 'face', maxCount: 1}
@@ -28,9 +30,16 @@ router.post('/', upload.fields([
             }
         }
     });
-    res.json(Object.keys(result));
-    let ocr = result.body.ocrResult;
-    res.json([ocr.name, ocr.licenseNumber]);
+    // res.json(Object.keys(result));
+    let ocr = JSON.parse(result);
+    console.log(ocr.score)
+    console.log(ocr.ocrResult)
+
+    const verifiedLicense = await verifyLicense(2, 'searchPage', ocr.ocrResult.regisNumber, ocr.ocrResult.name, ocr.ocrResult.licenseNumber, req.body.ghostNo)
+
+    const answer = ocr.score > 60 && verifiedLicense
+
+    res.json(answer);
 });
 
 module.exports = {router, path: '/register'};
