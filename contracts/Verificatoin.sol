@@ -12,7 +12,6 @@ contract Verification {
         uint64 expiry;
         string data;
     }
-
     mapping(string => mapping(string => DID)) didList;
 
     function promoteAdmin(address user) public {
@@ -34,8 +33,9 @@ contract Verification {
         didList[_phoneNumberHash][_type] = newDiD;
     }
 
-    function getLicense(string memory _phoneNumberHash, string memory _type) public view returns (uint64, string memory) {
-        return (didList[_phoneNumberHash][_type].expiry, didList[_phoneNumberHash][_type].data);
+    function getLicense(string memory _phoneNumberHash, string memory _type) public view returns (string memory, uint64, string memory) {
+        require(bytes(didList[_phoneNumberHash][_type].identifier).length > 0, "Not Verified");
+        return (didList[_phoneNumberHash][_type].identifier, didList[_phoneNumberHash][_type].expiry, didList[_phoneNumberHash][_type].data);
     }
 
     function invalidateLicense(string memory _phoneNumberHash, string memory _type) public {
