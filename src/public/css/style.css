@@ -1,0 +1,64 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+
+* {
+    font-family: 'Spoqa Han Sans', sans-serif !important;
+}
+body {
+    background-color: #f4f6fc;
+    font-size: 14px;
+}
+body.top-white {
+    background-color: #fff;
+}
+.page, .page__background, .page__content {
+    background-color: inherit;
+}
+#logo-main {
+    position: relative;
+    top: 80px;
+    margin: 0 auto;
+    display: block;
+    width: 90px;
+    height: auto;
+}
+#card-login {
+    position: absolute;
+    bottom: 50px;
+    left: 10px;
+    right: 10px;
+}
+#card-login form {
+    margin-bottom: 45px;
+}
+#card-login a {
+    color: #B0BAC9;
+    font-size: 12px;
+    text-decoration: none;
+}
+.input-idd {
+    display: block;
+}
+.input-idd>input {
+    background-color: #E0E7FF33;
+    border: 1px solid #e0e7ff;
+    border-radius: 3px;
+    padding: 18px 15px;
+    width: 100%;
+}
+ons-input.input-idd {
+    margin-bottom: 15px;
+}
+label.input-idd {
+    color: #B0BAC9;
+    margin: 7px 0;
+}
+.input-idd>.a-right {
+    float: right;
+    position: relative;
+    top: 4px;
+}
+.a-center {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+}
