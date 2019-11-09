@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-function setLayout(req, name = 'plain') {
-    return {layout: (!req.get('X-PJAX') ? name : false)};
+function setLayout(req, data = {}, name = 'plain') {
+    return {layout: (!req.get('X-PJAX') ? name : false), ...data};
 }
 
 router.get('/', (req, res) => {
