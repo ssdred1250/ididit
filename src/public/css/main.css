@@ -103,3 +103,25 @@
 .user-section-right {
     float: right;
 }
+
+.list-item__thumbnail {
+    width: 22px;
+    height: 22px;
+    border-radius: 0px;
+}
+
+.list-item__left {
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.list-item__title {
+    margin: 8px;
+    margin-top: 2px;
+    padding: 2px;
+}
+
+.selected {
+    background: #2E5BFF14;
+    border-left: solid 3px #2E5BFF;
+}

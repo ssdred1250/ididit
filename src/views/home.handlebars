@@ -35,54 +35,44 @@
 	</div>
 	<div class="drawer-body">
 		<ul class="list">
-			<li class="list-item">
+			<li class="list-item" id="home-menu">
 				<div class="list-item__left">
-					<img class="list-item__thumbnail" src="https://placekitten.com/g/40/40" alt="Cute kitten">
-				</div>
-
-				<div class="list-item__center">
+					<img class="list-item__thumbnail" src="/img/home.png" alt="Cute kitten">
 					<div class="list-item__title">HOME</div>
 				</div>
+
 			</li>
 
 			<li class="list-item">
 				<div class="list-item__left">
-					<img class="list-item__thumbnail" src="https://placekitten.com/g/40/40" alt="Cute kitten">
-				</div>
-
-				<div class="list-item__center">
+					<img class="list-item__thumbnail" src="/img/mypage.png" alt="Cute kitten">
 					<div class="list-item__title">마이페이지</div>
 				</div>
+
 			</li>
 
 			<li class="list-item">
 				<div class="list-item__left">
-					<img class="list-item__thumbnail" src="https://placekitten.com/g/40/40" alt="Cute kitten">
-				</div>
-
-				<div class="list-item__center">
+					<img class="list-item__thumbnail" src="/img/history.png" alt="Cute kitten">
 					<div class="list-item__title">히스토리</div>
 				</div>
+
 			</li>
 
 			<li class="list-item">
 				<div class="list-item__left">
-					<img class="list-item__thumbnail" src="https://placekitten.com/g/40/40" alt="Cute kitten">
-				</div>
-
-				<div class="list-item__center">
+					<img class="list-item__thumbnail" src="/img/setting.png" alt="Cute kitten">
 					<div class="list-item__title">설정</div>
 				</div>
+
 			</li>
 
 			<li class="list-item">
 				<div class="list-item__left">
-					<img class="list-item__thumbnail" src="https://placekitten.com/g/40/40" alt="Cute kitten">
-				</div>
-
-				<div class="list-item__center">
+					<img class="list-item__thumbnail" src="/img/logout.png" alt="Cute kitten">
 					<div class="list-item__title">로그아웃</div>
 				</div>
+
 			</li>
 		</ul>
 
@@ -106,6 +96,10 @@
 	}
 
 	makeCode();
+
+	if (location.pathname == '/home') {
+		$('#home-menu').addClass('selected')
+	}
 
 
 
