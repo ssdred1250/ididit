@@ -8,14 +8,15 @@
 		</div>
 	</ons-toolbar>
 	<div class="title-section center-text">
-		<span class='center-text' id="user-name">sy99010</span><span class='center-text grey-text'>님의 모바일 운전면허증</span>
+		<span class='center-text user-name-box' id="user-name">sy99010</span><span class='center-text grey-text'>님의 모바일
+			운전면허증</span>
 	</div>
 	<ons-card class='main-card'>
 		<div class="card-title-section">
 			<p class="card-title">MOBILE DRIVER LICENSE</p>
 			<p class="card-description">Republic Of Korea</p>
 		</div>
-		<p class='center-text' id="user-name">sy99010</p>
+		<p class='center-text user-name-box' id="user-name">sy99010</p>
 		<div id="qrcode"></div>
 
 		<p class='center-text grey-text'>0x189070ea70709b89707d07ee</p>
@@ -27,7 +28,7 @@
 
 <div class="drawer-section">
 	<div class="drawer-user-section">
-		<span class="user-name" id="user-name">sy99010</span>
+		<span class="user-name user-name-box" id="user-name">sy99010</span>
 		<div class="user-section-right">
 			<img class="nav-image-icon" src="/img/alarm.png" />
 		</div>
@@ -88,7 +89,7 @@
 	</div>
 </div>
 <script>
-    let jwt = {payload: JSON.parse(atob(localStorage.getItem('token').split('.')[1]))};
+	let jwt = { payload: JSON.parse(atob(localStorage.getItem('token').split('.')[1])) };
 	var qrcode = new QRCode("qrcode", {
 		text: jwt.payload.email,
 		width: 128,
@@ -100,9 +101,13 @@
 
 	function makeCode() {
 		qrcode.makeCode(jwt.payload.email);
+
+		$('.user-name-box').text(jwt.payload.email)
 	}
 
 	makeCode();
+
+
 
 	$('.page__content').click(() => {
 		if ($('.drawer-section').is(':visible')) {
