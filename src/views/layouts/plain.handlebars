@@ -17,6 +17,12 @@
 <title>I did it</title>
 </head>
 <body>
-{{{body}}}
+<div id="pjax">
+	{{{body}}}
+</div>
+<script src="/js/jquery.pjax.js"></script>
+<script>
+$(document).pjax('a', '#pjax');
+</script>
 </body>
 </html>
