@@ -10,7 +10,7 @@ const config = require('./config.json');
 
 require('express-async-errors');
 
-const port = 8090;
+const port = 8080;
 
 const app = express();
 app.use(bodyParser.urlencoded({
@@ -34,7 +34,7 @@ fs.readdirSync(path.join(__dirname, 'routes')).forEach((name) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(PORT, (err) => {
+app.listen(port, (err) => {
     if (!err) {
         console.log(`Listening on port ${port}`);
     } else {

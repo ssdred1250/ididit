@@ -47,7 +47,7 @@ userSchema.methods.generateAuthToken = async function() {
     // Generate an auth token for the user
     const user = this;
     console.log('@@')
-    const token = jwt.sign({_id: user._id}, config.JWT_KEY);
+    const token = jwt.sign({email: user.email}, config.JWT_KEY);
     user.tokens = user.tokens.concat({token});
     try{
         const a = await user.save()
