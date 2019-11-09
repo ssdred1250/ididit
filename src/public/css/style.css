@@ -138,3 +138,46 @@ label.input-idd {
     color: #8798AD;
     font-size: 12px;
 }
+ons-page.loading, ons-page.end {
+    display: none;
+    text-align: center;
+}
+ons-page.loading h1 {
+    font-size: 20px;
+    margin-top: 200px;
+}
+ons-page.loading h2 {
+    font-size: 18px;
+    color: #B0BAC9;
+}
+ons-page.end h1 {
+    font-size: 20px;
+}
+ons-page.end ul {
+    font-size: 12px;
+    font-weight: 300;
+    list-style-type: none;
+    position: absolute;
+    left: 30px;
+    right: 40px;
+    text-align: left;
+    word-break: keep-all;
+}
+ons-page.end li {
+    background: url("/img/check.png") no-repeat;
+    background-size: 18px;
+    padding-left: 26px;
+    margin: 6px;
+}
+ons-page.end .bottom {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+}
+ons-page.end .bottom h2 {
+    font-size: 12px;
+}
+ons-page.end .bottom .button-next {
+    margin-top: 10px;
+}

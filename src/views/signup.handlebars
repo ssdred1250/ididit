@@ -1,4 +1,4 @@
-<ons-page id="vue-app" class="register">
+<ons-page class="register">
 	<ons-toolbar>
 		<div class="left">
 			<ons-toolbar-button>&times;</ons-toolbar-button>
@@ -6,7 +6,7 @@
 		<div class="center bold">회원가입</div>
 	</ons-toolbar>
 	<ons-progress-bar id="progress-signup" value="10"></ons-progress-bar>
-	<section class="phase phase-1" style="display: none">
+	<section class="phase phase-1">
 		<div class="central">
 			<h2>서비스 이용약관 및 개인정보 처리방침 동의</h2>
 			<!--<div class="check">
@@ -141,7 +141,7 @@
 			</p>
 		</ons-card>
 	</section>
-	<section class="phase phase-5">
+	<section class="phase phase-5" style="display: none;">
 		<div class="central">
 			<h2>얼굴 인식</h2>
 			<p>
@@ -154,22 +154,46 @@
 	<input type="file" id="input-face" style="display: none;" accept="image/*" capture="user">
 	<ons-button modifier="large" class="button-next" disabled onclick="changePhase()">다음</ons-button>
 </ons-page>
+<ons-page class="loading">
+	<h1>
+		운전면허증을 <br>
+		해싱값으로 변환중입니다
+	</h1>
+	<ons-progress-circular indeterminate style="margin-top: 40px"></ons-progress-circular>
+	<h2>잠시만 기다려주세요</h2>
+</ons-page>
+<ons-page class="end">
+	<img src="/img/logo_v2.svg" alt="I did it" style="width: 95px; height: auto; margin: 100px auto 60px">
+	<h1 style="margin-bottom: 40px">
+		축하드립니다! <br>
+		I did it 가입을 완료하였습니다
+	</h1>
+	<ul>
+		<li>유효한 운전면허증으로 확인됐습니다.</li>
+		<li>얼굴인식이 93%로 일치합니다.</li>
+		<li>모바일 운전면허증이 블록체인 상에 기록되었습니다.</li>
+		<li>운전면허 및 이미지를 포함한 모든 개인정보를 파기했습니다.</li>
+	</ul>
+	<div class="bottom">
+		<h2>완전히 탈중앙화된 인증 서비스로 다양한 서비스를 즐겨보세요</h2>
+		<ons-button modifier="large" class="button-next">완료</ons-button>
+	</div>
+</ons-page>
 <script>
 let phase = 1;
 let isCheck = [false, false, false, false];
 
 function changePhase() {
     phase++;
-    $('.phase').hide();
-	$('.phase-' + phase).show();
-	document.querySelector('#progress-signup').value = -10 + phase * 20;
-	if(phase < 5) {
-		document.querySelector('.button-next').disabled = true;
+	if(phase < 6) {
+		$('.phase').hide();
+		$('.phase-' + phase).show();
+		document.querySelector('#progress-signup').value = -10 + phase * 20;
+		document.querySelector('.button-next').disabled = (phase < 5);
 	}
-	else if(phase === 6) {
-
+	else {
+		$('#input-face').trigger('click');
 	}
-
 }
 function check(num) {
 	isCheck[num] = $('#check-' + num).is(':checked');
@@ -200,5 +224,14 @@ $('.btn-album').click(() => {
 });
 $('#input-image').change(() => {
 	changePhase();
+});
+$('#input-face').change(() => {
+	$('ons-page.register').hide();
+	$('ons-page.loading').show();
+	// 백엔드와 Ajax 통신 여기서, 임시로 setTimeout으로 설정
+	setTimeout(() => {
+		$('ons-page.loading').hide();
+		$('ons-page.end').show();
+	}, 3000);
 });
 </script>
