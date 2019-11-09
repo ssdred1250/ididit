@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.engine('handlebars', hbs());
 app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
 
 mongoose.Promise = global.Promise;
 
