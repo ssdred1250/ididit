@@ -66,7 +66,7 @@
 			<form action="">
 				<label for="input-id" class="input-idd">이메일</label>
 				<ons-button id="button-check-duplicate" style="float: right; background-color: #2CC2A5; font-size: 13px; padding: 2px 10px;position: relative;z-index: 1000000000;">중복 확인</ons-button>
-				<ons-input input-id="input-id" class="input-idd with-confirm" placeholder="이메일을 입력해주세요"></ons-input>
+				<ons-input input-id="input-id" class="input-idd with-confirm" placeholder="이메일을 입력해주세요" type="email"></ons-input>
 				<label for="input-password" class="input-idd">비밀번호</label>
 				<ons-input input-id="input-password" class="input-idd" placeholder="영문, 숫자, 특수문자 포함 8자 이상 입력" type="password"></ons-input>
 				<label for="input-password-repeat" class="input-idd">비밀번호 확인</label>
@@ -123,6 +123,8 @@
 	<section class="phase phase-4" style="display: none;">
 		<h2 class="central">운전면허증 등록</h2>
 		<ons-card>
+			<label for="input-ghost" class="input-idd">식별번호</label>
+			<ons-input input-id="input-ghost" class="input-idd" placeholder="면허증 우하단 6자리 입력"></ons-input>
 			<div class="two-big-div">
 				<div class="btn-camera">
 					<img src="/img/camera.png">
@@ -170,13 +172,13 @@
 	</h1>
 	<ul>
 		<li>유효한 운전면허증으로 확인됐습니다.</li>
-		<li>얼굴인식이 93%로 일치합니다.</li>
+		<li>얼굴인식이 <span id="span-percent">80</span>%로 일치합니다.</li>
 		<li>모바일 운전면허증이 블록체인 상에 기록되었습니다.</li>
 		<li>운전면허 및 이미지를 포함한 모든 개인정보를 파기했습니다.</li>
 	</ul>
 	<div class="bottom">
 		<h2>완전히 탈중앙화된 인증 서비스로 다양한 서비스를 즐겨보세요</h2>
-		<ons-button modifier="large" class="button-next">완료</os-button>
+		<ons-button modifier="large" class="button-next" id="btn-complete">완료</ons-button>
 	</div>
 </ons-page>
 <script>
@@ -233,11 +235,29 @@ $('#input-face').change(() => {
 	    email: $('#input-id').val(),
 		password: $('#input-password').val(),
 		phoneNumber: $('#input-phone').val()})
-	.then(() => {
-		$('ons-page.loading').hide();
-		$('ons-page.end').show();
+	.then((data) => {
+	    let fd = new FormData();
+	    fd.append('license', $('#input-image')[0].files[0]);
+		fd.append('face', $('#input-face')[0].files[0]);
+		fd.append('ghostNo', $('#input-ghost').val());
+		fd.append('token', data.token);
+		localStorage.setItem('token', data.token);
+	    $.ajax({
+			url: '/register', data: fd, processData: false,
+			contentType: false, type: 'POST'
+		}).then((data) => {
+			$('ons-page.loading').hide();
+			$('ons-page.end').show();
+			$('#span-percent').text(data.similarity);
+		}, () => {
+			ons.notification.alert('운전면허증 인식에 실패했습니다.');
+		});
+
 	}, () => {
-		ons.notification.alert('오류 발생!');
+		ons.notification.alert('입력 데이터가 잘못되었거나 서버에 오류가 있습니다.');
 	});
+});
+$('#btn-complete').click(() => {
+    location.reload();
 });
 </script>

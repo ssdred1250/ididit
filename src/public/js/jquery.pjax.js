@@ -289,7 +289,7 @@
             }
             
             if (options.push || options.replace) {
-                window.history.replaceState(pjax.state, container.title, container.url)
+                //window.history.replaceState(pjax.state, container.title, container.url)
             }
             
             // Only blur the focus if the focused element is within the container.
@@ -350,7 +350,7 @@
                 fragment: options.fragment,
                 timeout: options.timeout
             }
-            window.history.replaceState(pjax.state, document.title)
+            //window.history.replaceState(pjax.state, document.title)
         }
         
         // Cancel the current request if we're already pjaxing
@@ -395,7 +395,7 @@
     //
     // Returns nothing.
     function locationReplace(url) {
-        window.history.replaceState(null, "", pjax.state.url)
+        //window.history.replaceState(null, "", pjax.state.url)
         window.location.replace(url)
     }
     
