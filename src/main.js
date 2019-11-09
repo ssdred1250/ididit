@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
 
+const walletInstance = require('./klaytn/createWallet')
+
 require('express-async-errors');
 
 const PORT = 8090;

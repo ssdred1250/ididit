@@ -35,6 +35,7 @@ contract Verification {
     }
 
     function getLicense(string memory _phoneNumberHash, string memory _type) public view returns (uint64, string memory) {
+        require(bytes(didList[_phoneNumberHash][_type].identifier).length > 0, "Not Verified");
         return (didList[_phoneNumberHash][_type].expiry, didList[_phoneNumberHash][_type].data);
     }
 
