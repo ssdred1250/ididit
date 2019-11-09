@@ -126,7 +126,8 @@
     border-left: solid 3px #2E5BFF;
 }
 
-.left-test {
+.left-text {
+    margin-left: 14px;
     text-align: left;
 }
 
@@ -135,10 +136,10 @@
     display: flex;
     justify-content: center;
     height: 32vh;
-    margin: auto;
 }
 
 .recog-img {
     width: 160px;
+    margin: auto;
     height: 160px;
 }
