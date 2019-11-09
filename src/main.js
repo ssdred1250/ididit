@@ -10,7 +10,7 @@ const config = require('./config.json');
 
 require('express-async-errors');
 
-const port = 8080;
+const port = 8090;
 
 const app = express();
 app.use(bodyParser.urlencoded({
@@ -21,10 +21,10 @@ app.use(bodyParser.json());
 mongoose.Promise = global.Promise;
 
 mongoose.connect(config.MONGO_URI, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true
-    }).then(() => console.log('Successfully connected to mongodb'))
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+}).then(() => console.log('Successfully connected to mongodb'))
     .catch(e => console.error(e));
 
 fs.readdirSync(path.join(__dirname, 'routes')).forEach((name) => {
