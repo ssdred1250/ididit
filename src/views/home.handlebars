@@ -88,6 +88,7 @@
 	</div>
 </div>
 <script>
+    let jwt = {payload: JSON.parse(atob(localStorage.getItem('token').split('.')[1]))};
 	var qrcode = new QRCode("qrcode", {
 		text: jwt.payload.email,
 		width: 128,
