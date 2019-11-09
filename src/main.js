@@ -5,13 +5,27 @@ const path = require('path');
 
 const walletInstance = require('./klaytn/createWallet')
 
+const mongoose = require('mongoose');
+const config = require('./config.json');
+
 require('express-async-errors');
 
-const PORT = 8090;
+const port = 8090;
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect(config.MONGO_URI, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true
+    }).then(() => console.log('Successfully connected to mongodb'))
+    .catch(e => console.error(e));
 
 fs.readdirSync(path.join(__dirname, 'routes')).forEach((name) => {
     let m = require(path.join(__dirname, 'routes', name));
@@ -22,9 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(PORT, (err) => {
     if (!err) {
-        console.log(`Listening on port ${PORT}`);
-    }
-    else {
+        console.log(`Listening on port ${port}`);
+    } else {
         console.error(err.message);
     }
 });
